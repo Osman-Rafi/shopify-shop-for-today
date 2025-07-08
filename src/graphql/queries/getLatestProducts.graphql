@@ -1,0 +1,10 @@
+
+query LatestProducts {
+  products(first: 10) {
+    edges {
+      node {
+        title
+      }
+    }
+  }
+}
