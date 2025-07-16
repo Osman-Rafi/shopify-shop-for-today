@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
     config.module.rules.push({
       test: /\.(graphql|gql)$/,
       exclude: /node_modules/,
-      use: [{ loader: "graphql-tag/loader" }],
-      // use: 'raw-loader',
+      // use: [{ loader: "graphql-tag/loader" }],
+      use: 'raw-loader',
     });
 
     return config;

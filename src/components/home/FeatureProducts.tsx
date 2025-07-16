@@ -1,17 +1,16 @@
-// components/FeaturedProducts.tsx
-type Product = {
-  id: string;
-  name: string;
-  image: string;
+import { FeaturedProduct } from "@/app/types/featuredTypes";
+
+interface FeaturedProduct {
+  handle: string;
+  title: string;
+  descriptionHtml: string;
   price: string;
-  description?: string;
-};
-
-interface FeaturedProductsProps {
-  products: Product[];
 }
-
-export default function FeaturedProducts({ products }: FeaturedProductsProps) {
+export default function FeaturedProducts({
+  products,
+}: {
+  products: FeaturedProduct[];
+}) {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4">
@@ -21,20 +20,22 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <div
-              key={product.id}
+              key={product.handle}
               className="border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition p-4 flex flex-col"
             >
-              <img
+              {/* <img
                 src={product.image}
                 alt={product.name}
                 className="rounded-xl mb-4 object-cover w-full h-48"
+              /> */}
+              <h3 className="text-lg font-semibold mb-1">{product.title}</h3>
+
+              <div
+                className="text-gray-600 text-sm flex-grow"
+                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
               />
-              <h3 className="text-lg font-semibold mb-1">{product.name}</h3>
-              <p className="text-gray-600 text-sm flex-grow">
-                {product.description}
-              </p>
               <div className="mt-4 flex items-center justify-between">
-                <span className="text-lg font-bold">{product.price}</span>
+                <span className="text-lg font-bold">${product.price}</span>
                 <button className="bg-black text-white px-4 py-2 rounded-xl text-sm hover:bg-gray-800 transition">
                   View Product
                 </button>

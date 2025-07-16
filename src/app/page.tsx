@@ -1,50 +1,52 @@
+import { shopifyClient } from "@/config/shopify/shopifyClient";
+
+import { ProductNode } from "@/app/types/featuredTypes";
+
 import FeatureHighlights from "../components/home/FeatureHighlights";
 import FeatureProducts from "../components/home/FeatureProducts";
 import Hero from "../components/home/Hero";
 
-import { shopifyClient } from "@/config/shopify/shopifyClient";
 import LatestProducts from "@/graphql/queries/getLatestProducts.graphql";
 
 export default async function Home() {
-  const { data } = await shopifyClient.request(LatestProducts, {
-    variables: {
-      handle: "sample-product",
-      first: 10,
-    },
-  });
+  let featuredProducts: ProductNode[] = [];
 
-  console.log("Product Data:", data);
-  // console.log("Product Edges:", data.products.edges);
+  try {
+    const { data, errors } = await shopifyClient.request(LatestProducts, {
+      variables: {
+        handle: "featured-products",
+        first: 10,
+      },
+    });
+
+    if (data) {
+      const serverData = data.products?.edges || [];
+
+      featuredProducts = serverData.map((product: ProductNode) => {
+        const { handle, title, descriptionHtml, variants } = product.node;
+        const { amount } = variants.edges[0].node.price;
+
+        return {
+          handle,
+          title,
+          descriptionHtml,
+          price: amount,
+        };
+      });
+
+      console.log("Mapped Featured Products:", featuredProducts);
+    } else if (errors) {
+      console.error("GraphQL Errors:", errors?.graphQLErrors);
+    }
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
 
   return (
     <>
       <Hero />
       <FeatureHighlights />
-      <FeatureProducts
-        products={[
-          {
-            id: "1",
-            name: "Glow Serum",
-            image: "https://example.com/glow-serum.jpg",
-            price: "$29.99",
-            description: "A serum that enhances your natural glow.",
-          },
-          {
-            id: "2",
-            name: "Hydration Cream",
-            image: "https://example.com/hydration-cream.jpg",
-            price: "$34.99",
-            description: "Deeply hydrates and nourishes your skin.",
-          },
-          {
-            id: "3",
-            name: "Revitalizing Mask",
-            image: "https://example.com/revitalizing-mask.jpg",
-            price: "$24.99",
-            description: "A mask that revitalizes tired skin.",
-          },
-        ]}
-      />
+      <FeatureProducts products={featuredProducts} />
     </>
   );
 }

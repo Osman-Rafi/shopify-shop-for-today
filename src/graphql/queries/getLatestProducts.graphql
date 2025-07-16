@@ -1,9 +1,19 @@
-
 query LatestProducts {
-  products(first: 10) {
+  products(first: 6) {
     edges {
       node {
+        handle
         title
+        descriptionHtml
+        variants(first: 1) {
+          edges {
+            node {
+              price {
+                amount
+              }
+            }
+          }
+        }
       }
     }
   }
