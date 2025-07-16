@@ -1,4 +1,8 @@
+import Link from "next/link";
+
 import { FeaturedProduct } from "@/app/types/featuredTypes";
+
+const SHOPIFY_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN;
 
 export default function FeaturedProducts({
   products,
@@ -30,9 +34,12 @@ export default function FeaturedProducts({
               />
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-lg font-bold">${product.price}</span>
-                <button className="bg-black text-white px-4 py-2 rounded-xl text-sm hover:bg-gray-800 transition">
+                <Link
+                  href={`${SHOPIFY_DOMAIN}/products/${product.handle}`}
+                  className="bg-black text-white px-4 py-2 rounded-xl text-sm hover:bg-gray-800 transition"
+                >
                   View Product
-                </button>
+                </Link>
               </div>
             </div>
           ))}
