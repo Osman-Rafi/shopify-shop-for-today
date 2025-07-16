@@ -1,11 +1,5 @@
 import { FeaturedProduct } from "@/app/types/featuredTypes";
 
-interface FeaturedProduct {
-  handle: string;
-  title: string;
-  descriptionHtml: string;
-  price: string;
-}
 export default function FeaturedProducts({
   products,
 }: {

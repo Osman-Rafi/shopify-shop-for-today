@@ -14,3 +14,10 @@ export interface ProductNode {
     };
   };
 }
+
+export interface FeaturedProduct {
+  handle: string;
+  title: string;
+  descriptionHtml: string;
+  price: string;
+}
