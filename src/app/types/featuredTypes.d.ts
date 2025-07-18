@@ -9,6 +9,10 @@ export interface ProductNode {
           price: {
             amount: string;
           };
+          image?: {
+            altText?: string;
+            src?: string;
+          };
         };
       }>;
     };
@@ -20,4 +24,8 @@ export interface FeaturedProduct {
   title: string;
   descriptionHtml: string;
   price: string;
+  image?: {
+    altText?: string;
+    src?: string;
+  };
 }

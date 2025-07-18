@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { FeaturedProduct } from "@/app/types/featuredTypes";
 
@@ -21,11 +22,13 @@ export default function FeaturedProducts({
               key={product.handle}
               className="border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition p-4 flex flex-col"
             >
-              {/* <img
-                src={product.image}
-                alt={product.name}
+              <Image
+                width={300}
+                height={300}
+                src={product.image?.src || ""}
+                alt={product.image?.altText || ""}
                 className="rounded-xl mb-4 object-cover w-full h-48"
-              /> */}
+              />
               <h3 className="text-lg font-semibold mb-1">{product.title}</h3>
 
               <div

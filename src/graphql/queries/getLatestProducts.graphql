@@ -11,6 +11,10 @@ query LatestProducts {
               price {
                 amount
               }
+              image {
+                altText
+                src
+              }
             }
           }
         }

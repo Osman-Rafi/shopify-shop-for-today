@@ -19,17 +19,22 @@ export const getLatestProducts = async (handle: string, first: number) => {
       featuredProducts = serverData.map((product: ProductNode) => {
         const { handle, title, descriptionHtml, variants } = product.node;
         const { amount } = variants.edges[0].node.price;
+        const { altText, src } = variants.edges[0].node.image || {};
 
         return {
           handle,
           title,
           descriptionHtml,
           price: amount,
+          image: {
+            altText: altText || "",
+            src: src || "",
+          },
         };
       });
+      // console.log("Mapped Featured Products:", featuredProducts[0]);
       return featuredProducts;
 
-      // console.log("Mapped Featured Products:", featuredProducts);
     } else if (errors) {
       console.error("GraphQL Errors:", errors?.graphQLErrors);
     }

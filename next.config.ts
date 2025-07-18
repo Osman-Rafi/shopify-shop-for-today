@@ -6,10 +6,20 @@ const nextConfig: NextConfig = {
       test: /\.(graphql|gql)$/,
       exclude: /node_modules/,
       // use: [{ loader: "graphql-tag/loader" }],
-      use: 'raw-loader',
+      use: "raw-loader",
     });
 
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
