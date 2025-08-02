@@ -1,4 +1,4 @@
-import { getLatestProducts } from "@/app/api/getFeaturedProducts";
+import { getLatestProducts } from "@/lib/services/getFeaturedProducts";
 
 import FeatureHighlights from "../components/home/FeatureHighlights";
 import FeatureProducts from "../components/home/FeatureProducts";
