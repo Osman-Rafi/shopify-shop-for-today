@@ -11,6 +11,6 @@ export const swalAlert = (
     title,
     text: Array.isArray(text) ? text.join(", ") : text,
     icon,
-    confirmButtonText: "Cool",
+    confirmButtonText: "OK",
   });
 };

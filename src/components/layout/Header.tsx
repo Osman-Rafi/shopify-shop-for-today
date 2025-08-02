@@ -29,6 +29,11 @@ const Header: React.FC = () => {
               Cart
             </Link>
           </li>
+          <li>
+            <Link href="/sign-in" className="text-gray-700 hover:text-blue-600">
+              Sign In
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
