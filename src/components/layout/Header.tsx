@@ -1,7 +1,13 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
+import { cookies } from "next/headers";
 
-const Header: React.FC = () => {
+import AuthOptions from "@/components/layout/AuthOptions";
+
+const Header: React.FC = async () => {
+  const cookiesStore = await cookies();
+  const isAuthenticated = cookiesStore.get("customerAccessToken")?.value;
+
   return (
     <header className="bg-white shadow-md py-4 px-8 flex items-center justify-between">
       <div className="text-2xl font-bold text-gray-800">
@@ -10,7 +16,10 @@ const Header: React.FC = () => {
       <nav>
         <ul className="flex space-x-6">
           <li>
-            <Link href="/products" className="text-gray-700 hover:text-blue-600">
+            <Link
+              href="/products"
+              className="text-gray-700 hover:text-blue-600"
+            >
               Products
             </Link>
           </li>
@@ -29,11 +38,7 @@ const Header: React.FC = () => {
               Cart
             </Link>
           </li>
-          <li>
-            <Link href="/sign-in" className="text-gray-700 hover:text-blue-600">
-              Sign In
-            </Link>
-          </li>
+          <AuthOptions isLoggedin={!!isAuthenticated} />
         </ul>
       </nav>
     </header>
